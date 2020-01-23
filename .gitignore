@@ -1,0 +1,9 @@
+# Byte-compiled
+__pycache__/
+
+# Editors
+.vscode/
+.idea/
+
+# Mac/OSX
+.DS_Store
