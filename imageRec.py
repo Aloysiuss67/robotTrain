@@ -9,7 +9,7 @@ error = 0.0
 debugMode = True
 
 
-def main(camera, debug):
+def detect_error(camera, debug):
     img = snapshot(camera)
     return line_detection(img, debug)
 
