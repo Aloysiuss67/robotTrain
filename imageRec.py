@@ -1,19 +1,17 @@
-import picamera
 import picamera.array
-import time
 import cv2
 import numpy as np
 
 colourThreshold = 40  # white is high (255)
-scale = 0.0009
+scale = 0.0009  # error needs to be a value between 0-1
 error = 0.0
 
-debugMode = True;
+debugMode = True
 
 
-def main(camera):
+def main(camera, debug):
     img = snapshot(camera)
-    return line_detection(img)
+    return line_detection(img, debug)
 
 
 def snapshot(camera):
@@ -23,25 +21,25 @@ def snapshot(camera):
     return img
 
 
-def line_detection(img):
+def line_detection(img, debug):
     global error
     global colourThreshold
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     for i in range(0, 640, 40):
         if gray[370, i] > colourThreshold:  # if greater, the pixel is white (white = 255, black = 0)
-            if debugMode:
+            if debug:
                 print('1', end='')
             pixel_col = 1
         else:
-            if debugMode:
+            if debug:
                 print('0', end='')
             pixel_col = 0
 
         error = error + (i - 300) * pixel_col
     error = error * scale
 
-    if debugMode:
+    if debug:
         print('')
         print(error)
 
